@@ -1,6 +1,9 @@
 import { db } from '@/db';
 import Link from 'next/link';
 
+// make this page a dynamic route and disable all caching for this page for production
+// export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   const snippets = await db.snippet.findMany();
 

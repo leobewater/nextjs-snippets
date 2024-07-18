@@ -1,5 +1,6 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { db } from '@/db';
 
@@ -17,6 +18,9 @@ export async function deleteSnippet(id: number) {
   await db.snippet.delete({
     where: { id },
   });
+
+  // On-Demand caching - dump cached data for particular path such as homepage
+  revalidatePath('/');
 
   redirect('/');
 }
@@ -49,6 +53,7 @@ export async function createSnippet(
         code,
       },
     });
+
     // console.log(snippet);
     // throw new Error('Failed to save to database.');
   } catch (err: unknown) {
@@ -63,6 +68,9 @@ export async function createSnippet(
       };
     }
   }
+
+  // On-Demand caching - dump cached data for particular path such as homepage
+  revalidatePath('/');
 
   // redirect to snippet detail page, redirect must be outside of try catch
   redirect('/');
