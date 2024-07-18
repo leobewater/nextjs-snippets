@@ -11,6 +11,9 @@ export async function editSnippet(id: number, code: string) {
     data: { code },
   });
 
+  // On-Demand caching - dump cached data for particular path such as homepage
+  revalidatePath(`/snippets/${id}`);
+
   redirect(`/snippets/${id}`);
 }
 
