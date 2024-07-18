@@ -20,3 +20,29 @@ export async function deleteSnippet(id: number) {
 
   redirect('/');
 }
+
+// using formState, also good for non-js
+export async function createSnippet(
+  formState: { message: string },
+  formData: FormData
+) {
+  return {
+    message: 'Title must be longer',
+  };
+
+  // // fields validation
+  // const title = formData.get('title') as string;
+  // const code = formData.get('code') as string;
+
+  // // create a new record in database
+  // const snippet = await db.snippet.create({
+  //   data: {
+  //     title,
+  //     code,
+  //   },
+  // });
+  // // console.log(snippet);
+
+  // // redirect to snippet detail page
+  // redirect('/');
+}
